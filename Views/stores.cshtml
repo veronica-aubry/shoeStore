@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shoe Finder</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='~/Content/css/styles.css'>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1><a href="/">Shoe Finder</a></h1>
+
+      <form class="container" action="/brand_search" method="post">
+         <div class="col-md-6 col-md-offset-3">
+        	<div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search by brand" name="author-name">
+          </div>
+        </div>
+      </form>
+
+      <form class="container" action="/store_search" method="post">
+         <div class="col-md-6 col-md-offset-3">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search by store" name="book-name">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container text-center">
+      @{
+     if (Model != null)
+     {
+       @foreach (var store in Model)
+      {
+       <button class ="btn btn-default">
+      <a href="/store/@store.GetId()">@store.GetName()</a>
+      </button>
+
+     }
+    }
+  }
+
+   <div id="forms">
+       <h2>Add a new Store:</h2>
+       <form method="post" action="/addStore">
+         Store Name:
+         <input type="text" name="store-name">
+         <button type="submit">Add</button>
+       </form>
+
+    </div>
+    <a href="/">Back</a>
+    <a href="/store/delete_all">Delete All</a>
+  </div>

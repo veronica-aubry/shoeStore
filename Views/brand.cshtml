@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shoe Finder</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='~/Content/css/styles.css'>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1><a href="/">Shoe Finder</a></h1>
+
+      <form class="container" action="/brand_search" method="post">
+         <div class="col-md-6 col-md-offset-3">
+        	<div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search by brand" name="author-name">
+          </div>
+        </div>
+      </form>
+
+      <form class="container" action="/store_search" method="post">
+         <div class="col-md-6 col-md-offset-3">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search by store" name="book-name">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container text-center">
+
+      <h2>Brand: @Model["brand"].GetName()</h2>
+      <hr />
+      @if (@Model["brandStores"].Count != 0)
+      {
+        <h4>This brand is carried in these stores:</h4>
+
+          @foreach (var store in @Model["brandStores"])
+          {
+            <p>@store.GetName()</p>
+          }
+
+      }
+      <h4>Add a store: </h4>
+      <form action='/brand/@Model["brand"].GetId()/add_store' method='post'>
+        <input id='brand-id' name='brand-id' type='hidden' value='@Model["brand"].GetId()'>
+        <label for='store-id'>Select a store</label>
+        <select id='store-id' name='store-id' type='text'>
+          @foreach (var store in @Model["allStores"])
+          {
+            <option value='@store.GetId()'>@store.GetName()</option>
+          }
+        </select>
+        <button type='submit'>Add</button>
+      </form>
+
+
+
+    <a href="/">Back</a>
+  </div>
