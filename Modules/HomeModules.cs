@@ -28,11 +28,36 @@ namespace ShoeStore
       return View["store.cshtml", model];
       };
 
+      Get["/store/{id}/edit"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Store SelectedStore = Store.Find(parameters.id);
+        List<Brand> StoreBrands = SelectedStore.GetBrands();
+        List<Brand> AllBrands = Brand.GetAll();
+        model.Add("store", SelectedStore);
+        model.Add("storeBrands", StoreBrands);
+        model.Add("allBrands", AllBrands);
+      return View["edit_store.cshtml", model];
+      };
+
+
+      Patch["/store/{id}/edit"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Store SelectedStore = Store.Find(parameters.id);
+        SelectedStore.Update(Request.Form["store-name"]);
+        List<Brand> StoreBrands = SelectedStore.GetBrands();
+        List<Brand> AllBrands = Brand.GetAll();
+        model.Add("store", SelectedStore);
+        model.Add("storeBrands", StoreBrands);
+        model.Add("allBrands", AllBrands);
+        return View["store.cshtml", model];
+      };
+
       Get["/store/delete_all"] = _ => {
         Store.DeleteAll();
         List<Store> allStores = Store.GetAll();
         return View["stores.cshtml", allStores];
       };
+
 
       Post["/addStore"] = _ => {
         Store newStore = new Store(Request.Form["store-name"]);
