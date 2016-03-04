@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shoe Finder</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='~/Content/css/styles.css'>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1><a href="/">Shoe Finder</a></h1>
+
+      <form class="container" action="/brand_search" method="post">
+         <div class="col-md-6 col-md-offset-3">
+        	<div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search by brand" name="brand-name">
+          </div>
+        </div>
+      </form>
+
+      <form class="container" action="/store_search" method="post">
+         <div class="col-md-6 col-md-offset-3">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search by store" name="store-name">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="container text-center">
+
+        @{var route = @Model["store"];}
+
+      <h1>Results:</h1>
+      <button class ="btn btn-default">
+     <a href="/store/@route.GetId()">@route.GetName()</a>
+     </button>
+    </div>
+  </body>
+</html>

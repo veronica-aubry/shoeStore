@@ -182,6 +182,40 @@ namespace ShoeStore
       return foundStore;
     }
 
+    public static Store FindName(string name)
+   {
+     SqlConnection conn = DB.Connection();
+     SqlDataReader rdr = null;
+     conn.Open();
+
+     SqlCommand cmd = new SqlCommand("SELECT * FROM stores WHERE name = @StoreName", conn);
+     SqlParameter storeNameParameter = new SqlParameter();
+     storeNameParameter.ParameterName = "@StoreName";
+     storeNameParameter.Value = name;
+     cmd.Parameters.Add(storeNameParameter);
+     rdr = cmd.ExecuteReader();
+
+     int foundStoreId = 0;
+     string foundStoreName = null;
+
+     while(rdr.Read())
+     {
+       foundStoreId = rdr.GetInt32(0);
+       foundStoreName = rdr.GetString(1);
+     }
+     Store foundStore = new Store(foundStoreName, foundStoreId);
+
+     if (rdr != null)
+     {
+       rdr.Close();
+     }
+     if (conn != null)
+     {
+       conn.Close();
+     }
+     return foundStore;
+   }
+
 
       public void Delete()
     {

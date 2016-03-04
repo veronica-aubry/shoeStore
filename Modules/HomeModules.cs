@@ -39,7 +39,6 @@ namespace ShoeStore
       return View["edit_store.cshtml", model];
       };
 
-
       Patch["/store/{id}/edit"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Store SelectedStore = Store.Find(parameters.id);
@@ -50,6 +49,13 @@ namespace ShoeStore
         model.Add("storeBrands", StoreBrands);
         model.Add("allBrands", AllBrands);
         return View["store.cshtml", model];
+      };
+
+      Delete["/store/{id}/delete"] = parameters => {
+        Store SelectedStore = Store.Find(parameters.id);
+        SelectedStore.Delete();
+        List<Store> allStores = Store.GetAll();
+        return View["stores.cshtml", allStores];
       };
 
       Get["/store/delete_all"] = _ => {
@@ -117,6 +123,19 @@ namespace ShoeStore
       return View["brands.cshtml", allBrands];
       };
 
+      Post["/brand_search"] = _ => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Brand foundBrand = Brand.FindName(Request.Form["brand-name"]);
+        model.Add("brand", foundBrand);
+        return View["brand_search.cshtml", model];
+      };
+
+      Post["/store_search"] = _ => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Store foundStore = Store.FindName(Request.Form["store-name"]);
+        model.Add("store", foundStore);
+        return View["store_search.cshtml", model];
+      };
     }
   }
 }

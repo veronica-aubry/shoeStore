@@ -12,7 +12,7 @@
       <form class="container" action="/store_search" method="post">
          <div class="col-md-6 col-md-offset-3">
         	<div class="input-group input-group-lg">
-            <input type="text" class="form-control" placeholder="Search by store" name="author-name">
+            <input type="text" class="form-control" placeholder="Search by store" name="brand-name">
           </div>
         </div>
       </form>
@@ -20,7 +20,7 @@
       <form class="container" action="/store_search" method="post">
          <div class="col-md-6 col-md-offset-3">
           <div class="input-group input-group-lg">
-            <input type="text" class="form-control" placeholder="Search by store" name="book-name">
+            <input type="text" class="form-control" placeholder="Search by store" name="store-name">
           </div>
         </div>
       </form>
@@ -50,7 +50,7 @@
           }
 
       }
-      <h4>Add a store: </h4>
+      <h4>Add a brand: </h4>
       <form action="/store/@route/add_brand" method='post'>
         <input id='store-id' name='store-id' type='hidden' value='@Model["store"].GetId()'>
         <label for='brand-id'>Select a brand</label>
@@ -65,5 +65,5 @@
 
 
 
-    <a href="/">Back</a>
+    <a href="/stores">Back</a>
   </div>
